@@ -181,7 +181,7 @@ async def handle_buttons(callback: types.CallbackQuery):
 
 InlineKeyboardButton(
     text="✅ Оформить и оплатить",
-    web_app=WebAppInfo(url="https://yourdomain.com/webapp.html")
+    web_app=WebAppInfo(url="https://github.com/FOTESTTT/tg-shop-webapp/blob/main/webapp.html")
 )
 
 
@@ -191,3 +191,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
