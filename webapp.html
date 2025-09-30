@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оплата заказа</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { color: #2c3e50; }
+    button { padding: 10px 20px; font-size: 16px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Ваш заказ</h2>
+  <ul id="cart-items"></ul>
+  <h3 id="total">Итого: 0₽</h3>
+  <button id="payBtn">Оплатить</button>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // разворачиваем окно WebApp
+
+    // Пример корзины (можно динамически передавать через query params)
+    const cart = [
+      {name: "60 UC", price: 81, qty: 1},
+      {name: "A7 Royale Pass", price: 980, qty: 1}
+    ];
+
+    const ul = document.getElementById("cart-items");
+    let totalPrice = 0;
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} x${item.qty} - ${item.price * item.qty}₽`;
+      ul.appendChild(li);
+      totalPrice += item.price * item.qty;
+    });
+    document.getElementById("total").textContent = `Итого: ${totalPrice}₽`;
+
+    // Кнопка оплаты
+    document.getElementById("payBtn").addEventListener("click", () => {
+      // Здесь можно интегрировать платёжную систему
+      alert("Оплата прошла успешно!");
+
+      // Отправляем данные обратно боту
+      tg.sendData(JSON.stringify({
+        status: "paid",
+        total: totalPrice,
+        items: cart
+      }));
+    });
+  </script>
+</body>
+</html>
